@@ -1,9 +1,8 @@
-app.controller("ItemListCtrl", function($scope) {
+app.controller("ItemListCtrl", function($scope, $http) {
   $scope.items = [];
-
-  $scope.allItem = function() {
-    console.log('ALL');
-    $scope.showListView = true
-  };
-
+  
+  $http.get('./data/items.json')
+  .success(function(itemObject){
+    console.log('item object', itemObject)
+  })
 });
