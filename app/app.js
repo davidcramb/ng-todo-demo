@@ -12,7 +12,7 @@ app.config(function($routeProvider){
       templateUrl: "partials/item-new.html",
       controller: "ItemNewCtrl"
     }).
-    when('/items/details',{
+    when('/items/:itemId',{ // colon tells angular something will go in there
       templateUrl: "partials/item-details.html",
       controller: "ItemViewCtrl"
     }).

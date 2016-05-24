@@ -13,7 +13,7 @@
   <div class="panel panel-default">
     <div class="panel-body">
       <div class="col-xs-1"><input type="checkbox" name=""/></div>
-      <div class="col-xs-7">{{task.task}}</div>
+      <div class="col-xs-7"><a ng-href="#/items/{{task.id}}">{{task.task}}</a></div>
       <div class="col-xs-1"><span class="btn"><button class="btn btn-default"><i class="fa fa-calendar-o" aria-hidden="true"></i></button></span></div>
       <div class="col-xs-1">{{task.dueDate}}</div>      
       <div class="col-xs-1">{{task.assignedTo}}</div>
