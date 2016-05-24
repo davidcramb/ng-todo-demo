@@ -17,7 +17,8 @@
       <div class="col-xs-1"><span class="btn"><button class="btn btn-default"><i class="fa fa-calendar-o" aria-hidden="true"></i></button></span></div>
       <div class="col-xs-1">{{task.dueDate}}</div>      
       <div class="col-xs-1">{{task.assignedTo}}</div>
-      <div class="col-xs-1"><button class="btn btn-danger">X</button></div>
+      <div class="col-xs-1"><button class="btn btn-danger" ng-click="itemDelete(task.id)"><i class="fa fa-trash-o" aria-hidden="true"></i>
+</button></div>
     </div>
   </div>
 </div> 

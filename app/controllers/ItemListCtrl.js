@@ -1,8 +1,27 @@
-app.controller("ItemListCtrl", function($scope, $http) {
+app.controller("ItemListCtrl", function($scope, $http, $location) {
   $scope.items = [];
   
-  $http.get('./data/items.json')
+  var getItems = function() {
+  $http.get('https://dcc-todo-demo.firebaseio.com/items.json')
   .success(function(itemObject){
-    console.log('item object', itemObject)
-  })
+    var itemCollection = itemObject; //need to push this to array for ng-repeat method || also need to reference key somehow. easiest way is to directly shove id into array    
+    Object.keys(itemCollection).forEach(function(key) {
+      itemCollection[key].id=key; //find item collection object, pull out thing with key that the loop is on, set ID = key//
+      $scope.items.push(itemCollection[key]); //adds ID key with a value of the ID the object, eventually will add firebase ID
+    });
+  });
+};
+  getItems();
+
+  $scope.itemDelete = function(itemId){
+    console.log("itemId", itemId)
+    $http.delete(`https://dcc-todo-demo.firebaseio.com/items/${itemId}.json`)
+    .success(function(response){
+      console.log(response);
+      $scope.items = [];
+      getItems();
+
+    })
+  }
+
 });
