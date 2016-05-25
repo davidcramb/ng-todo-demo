@@ -1,4 +1,4 @@
-app.controller("ItemViewCtrl", function($scope, $http, $routeParams) { //routeParams allows you to go to the URL and pull variables//
+app.controller("ItemViewCtrl", function($scope, $routeParams, itemStorage) { //routeParams allows you to go to the URL and pull variables//
   $scope.items = [];
   $scope.selectedItem = {};
   console.log($routeParams.itemId);

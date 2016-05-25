@@ -24,8 +24,6 @@ app.controller("ItemListCtrl", function($scope, $http, $location, itemStorage) {
     console.log("itemId", itemId)
     itemStorage.deleteItem(itemId).then(function(response){
       itemStorage.getItemList().then(function(itemCollection){
-
-
       $scope.items = itemCollection;
       })
 
