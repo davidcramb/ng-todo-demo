@@ -1,4 +1,4 @@
-app.controller("ItemListCtrl", function($scope, $http, $location, itemStorage) {
+app.controller("ItemListCtrl", function($scope, $location, itemStorage) {
   $scope.items = [];
   
 //   var getItems = function() {

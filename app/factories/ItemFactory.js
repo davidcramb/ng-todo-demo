@@ -1,12 +1,12 @@
 //factory should be the only part of app that talks to Firebase. Helps keep up with scope in case URL(s) change and prevent repetition
 'use strict';
-app.factory("itemStorage", function($q, $http){ //$q is a directive that handles promises
+app.factory("itemStorage", function($q, $http, firebaseURL){ //$q is a directive that handles promises
 
   
   var getItemList = function(){
     let items = [];
     return $q(function(resolve, reject){ //promise to queue up so javascript can work asynchronously//
-      $http.get("https://dcc-todo-demo.firebaseio.com/items.json")
+      $http.get(firebaseURL + "/items.json")
         .success(function(itemObject){
           console.log(itemObject)
           var itemCollection = itemObject;
@@ -26,7 +26,7 @@ app.factory("itemStorage", function($q, $http){ //$q is a directive that handles
   var deleteItem = function(itemId){
     return $q(function(resolve, reject){
           $http
-              .delete(`https://dcc-todo-demo.firebaseio.com/items/${itemId}.json`)
+              .delete(firebaseURL + `/items/${itemId}.json`)
               .success(function(objectFromFirebase){
                 resolve(objectFromFirebase)
               });
@@ -36,7 +36,7 @@ app.factory("itemStorage", function($q, $http){ //$q is a directive that handles
   var postNewItem = function(newItem){
         return $q(function(resolve, reject) {
             $http.post(
-                "https://dcc-todo-demo.firebaseio.com/items.json",
+                firebaseURL + "/items.json",
                 JSON.stringify({
                     assignedTo: newItem.assignedTo,
                     dependencies: newItem.dependencies,

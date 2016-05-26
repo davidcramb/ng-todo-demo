@@ -1,4 +1,5 @@
-var app = angular.module("TodoApp", ['ngRoute']);
+var app = angular.module("TodoApp", ['ngRoute'])
+  .constant("firebaseURL", "https://dcc-todo-demo.firebaseio.com/"); //creates a variable using the second argument, good for firebase urls//
 
 //app config is an angular method that runs one time at load of project
 //similar formatting to controllers
