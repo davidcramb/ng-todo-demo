@@ -57,7 +57,7 @@ app.factory("itemStorage", function($q, $http, firebaseURL){ //$q is a directive
 
   var getSingleItem = function(itemId){
     return $q(function(resolve, reject){
-      $http.get(firebaseUrl + "items/" + itemId +".json")
+      $http.get(firebaseURL + "items/" + itemId + ".json")
         .success(function(itemObject){
           resolve(itemObject);
         })
@@ -67,7 +67,29 @@ app.factory("itemStorage", function($q, $http, firebaseURL){ //$q is a directive
     });
   }
 
+    var updateItem = function(itemId, newItem){
+        return $q(function(resolve, reject) {
+            $http.put(
+                firebaseURL + "/items/" +itemId + ".json",
+                JSON.stringify({
+                    assignedTo: newItem.assignedTo,
+                    dependencies: newItem.dependencies,
+                    dueDate: newItem.dueDate,
+                    isCompleted: newItem.isCompleted,
+                    location: newItem.location,
+                    task: newItem.task,
+                    urgency: newItem.urgency
+                })
+            )
+            .success(
+                function(objectFromFirebase) {
+                    resolve(objectFromFirebase);
+                }
+            );
+        });
+  };
+
   //makes these available outside of the ItemFactory
-  return {getItemList:getItemList, deleteItem:deleteItem, postNewItem:postNewItem getSingleItem:getSingleItem}
+  return {updateItem: updateItem, getItemList:getItemList, deleteItem:deleteItem, postNewItem:postNewItem, getSingleItem:getSingleItem}
 
 })
