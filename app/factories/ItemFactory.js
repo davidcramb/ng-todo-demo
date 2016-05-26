@@ -55,7 +55,19 @@ app.factory("itemStorage", function($q, $http, firebaseURL){ //$q is a directive
         });
   };
 
+  var getSingleItem = function(itemId){
+    return $q(function(resolve, reject){
+      $http.get(firebaseUrl + "items/" + itemId +".json")
+        .success(function(itemObject){
+          resolve(itemObject);
+        })
+        .error(function(error){
+          reject(error);
+        });
+    });
+  }
+
   //makes these available outside of the ItemFactory
-  return {getItemList:getItemList, deleteItem:deleteItem, postNewItem:postNewItem}
+  return {getItemList:getItemList, deleteItem:deleteItem, postNewItem:postNewItem getSingleItem:getSingleItem}
 
 })

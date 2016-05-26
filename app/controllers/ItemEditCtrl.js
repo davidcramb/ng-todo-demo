@@ -1,4 +1,4 @@
-app.controller("ItemNewCtrl", function($scope, $location, itemStorage){
+app.controller("ItemEditCtrl", function($scope, $location, itemStorage){
   $scope.newTask = {};
     
   $scope.addNewItem = function(){
