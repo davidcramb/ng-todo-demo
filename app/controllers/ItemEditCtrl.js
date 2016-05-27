@@ -1,4 +1,6 @@
 app.controller("ItemEditCtrl", function($scope, $location, $routeParams, itemStorage){
+  $scope.title = "Edit Item";
+  $scope.submitButtonText = "Edit Item";
   $scope.newTask = {};
 
   itemStorage.getSingleItem($routeParams.itemId)

@@ -67,29 +67,53 @@ app.factory("itemStorage", function($q, $http, firebaseURL){ //$q is a directive
     });
   }
 
-    var updateItem = function(itemId, newItem){
-        return $q(function(resolve, reject) {
-            $http.put(
-                firebaseURL + "/items/" +itemId + ".json",
-                JSON.stringify({
-                    assignedTo: newItem.assignedTo,
-                    dependencies: newItem.dependencies,
-                    dueDate: newItem.dueDate,
-                    isCompleted: newItem.isCompleted,
-                    location: newItem.location,
-                    task: newItem.task,
-                    urgency: newItem.urgency
-                })
-            )
-            .success(
-                function(objectFromFirebase) {
-                    resolve(objectFromFirebase);
-                }
-            );
-        });
+  var updateItem = function(itemId, newItem){
+      return $q(function(resolve, reject) {
+          $http.put(
+              firebaseURL + "/items/" +itemId + ".json",
+              JSON.stringify({
+                  assignedTo: newItem.assignedTo,
+                  dependencies: newItem.dependencies,
+                  dueDate: newItem.dueDate,
+                  isCompleted: newItem.isCompleted,
+                  location: newItem.location,
+                  task: newItem.task,
+                  urgency: newItem.urgency
+              })
+          )
+          .success(
+              function(objectFromFirebase) {
+                  resolve(objectFromFirebase);
+              }
+          );
+      });
   };
 
+  var updateCompletedStatus = function(newItem){
+    return $q(function(resolve, reject) {
+        $http.put(
+            firebaseURL + "/items/" +newItem.id + ".json",
+            JSON.stringify({
+                assignedTo: newItem.assignedTo,
+                dependencies: newItem.dependencies,
+                dueDate: newItem.dueDate,
+                isCompleted: newItem.isCompleted,
+                location: newItem.location,
+                task: newItem.task,
+                urgency: newItem.urgency
+            })
+        )
+        .success(
+            function(objectFromFirebase) {
+                resolve(objectFromFirebase);
+            }
+        );
+    });
+  };  
+
+
+
   //makes these available outside of the ItemFactory
-  return {updateItem: updateItem, getItemList:getItemList, deleteItem:deleteItem, postNewItem:postNewItem, getSingleItem:getSingleItem}
+  return {updateCompletedStatus:updateCompletedStatus, updateItem: updateItem, getItemList:getItemList, deleteItem:deleteItem, postNewItem:postNewItem, getSingleItem:getSingleItem}
 
 })
