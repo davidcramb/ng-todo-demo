@@ -1,12 +1,13 @@
 //factory should be the only part of app that talks to Firebase. Helps keep up with scope in case URL(s) change and prevent repetition
 'use strict';
-app.factory("itemStorage", function($q, $http, firebaseURL){ //$q is a directive that handles promises
+app.factory("itemStorage", function($q, $http, AuthFactory, firebaseURL){ //$q is a directive that handles promises
 
   
   var getItemList = function(){
     let items = [];
+    let user = AuthFactory.getUser();
     return $q(function(resolve, reject){ //promise to queue up so javascript can work asynchronously//
-      $http.get(firebaseURL + "/items.json")
+      $http.get(`${firebaseURL}items.json?orderBy="uid"&equalTo="${user.uid}"`) //? is query paramater
         .success(function(itemObject){
           console.log(itemObject)
           var itemCollection = itemObject;
@@ -34,6 +35,8 @@ app.factory("itemStorage", function($q, $http, firebaseURL){ //$q is a directive
   };
 
   var postNewItem = function(newItem){
+    let user = AuthFactory.getUser();
+    console.log(user)
         return $q(function(resolve, reject) {
             $http.post(
                 firebaseURL + "/items.json",
@@ -44,7 +47,8 @@ app.factory("itemStorage", function($q, $http, firebaseURL){ //$q is a directive
                     isCompleted: newItem.isCompleted,
                     location: newItem.location,
                     task: newItem.task,
-                    urgency: newItem.urgency
+                    urgency: newItem.urgency,
+                    uid: user.uid
                 })
             )
             .success(
@@ -78,7 +82,8 @@ app.factory("itemStorage", function($q, $http, firebaseURL){ //$q is a directive
                   isCompleted: newItem.isCompleted,
                   location: newItem.location,
                   task: newItem.task,
-                  urgency: newItem.urgency
+                  urgency: newItem.urgency,
+                  uid: user.uid
               })
           )
           .success(
@@ -100,7 +105,8 @@ app.factory("itemStorage", function($q, $http, firebaseURL){ //$q is a directive
                 isCompleted: newItem.isCompleted,
                 location: newItem.location,
                 task: newItem.task,
-                urgency: newItem.urgency
+                urgency: newItem.urgency,
+                uid: user.uid
             })
         )
         .success(

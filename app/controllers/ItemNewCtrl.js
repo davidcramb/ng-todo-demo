@@ -1,7 +1,17 @@
 app.controller("ItemNewCtrl", function($scope, $location, itemStorage){
   $scope.title = "New Item";
   $scope.submitButtonText = "Add New Item";
-  $scope.newTask = {};
+  $scope.newTask = {
+    assignedTo: "",
+    dependencies: "",
+    dueDate: "",
+    isComplete: "",
+    location: "",
+    task: "",
+    urgency: "",
+    uid: ""
+
+  };
     
   $scope.addNewItem = function(){
     itemStorage.postNewItem($scope.newTask)
