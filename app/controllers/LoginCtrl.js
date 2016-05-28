@@ -1,7 +1,10 @@
 "use strict";
 app.controller("LoginCtrl", function($scope, $routeParams, $location, firebaseURL, AuthFactory) {
   let ref = new Firebase(firebaseURL);
-  console.log(ref)
+
+  $scope.hasUser = false;
+
+
 
   //dummy object
   $scope.account = {
@@ -32,6 +35,7 @@ app.controller("LoginCtrl", function($scope, $routeParams, $location, firebaseUR
     AuthFactory
         .authenticate($scope.account)
         .then(() => {
+          $scope.hasUser = true;
           $location.path("/");
           $scope.$apply()
         })
